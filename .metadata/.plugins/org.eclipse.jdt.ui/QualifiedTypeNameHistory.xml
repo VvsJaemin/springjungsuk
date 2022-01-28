@@ -11,4 +11,5 @@
     <fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
     <fullyQualifiedTypeName name="org.springframework.ui.Model"/>
     <fullyQualifiedTypeName name="org.springframework.web.servlet.ModelAndView"/>
+    <fullyQualifiedTypeName name="com.sun.java.util.jar.pack.Package.Class.Method"/>
 </qualifiedTypeNameHistroy>

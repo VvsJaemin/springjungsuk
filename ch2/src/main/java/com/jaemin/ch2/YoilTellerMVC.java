@@ -21,26 +21,22 @@ public class YoilTellerMVC {
 	// TODO Auto-generated method stub
 	@RequestMapping("/getYoilMVC")
 //		public void main(HttpServletRequest request, HttpServletResponse response) throws IOException {
-	public ModelAndView main(int year, int month, int day) throws IOException {
-		
-		ModelAndView mv = new ModelAndView();
+	public String main(int year, int month, int day, Model model) throws IOException {
 
-//		if (!isValid(year, month, day)) {
-//			return "yoilError";
-//		}
+
+		if (!isValid(year, month, day)) {
+			return "yoilError";
+		}
 		// 요일 계산
 		char yoil = getYoil(year, month, day);
 
 		// 계산한 결과를 model에 저장
-		mv.addObject("year", year);
-		mv.addObject("month", month);
-		mv.addObject("day", day);
-		
-		
-		// 결과를 보여줄 view를 저장.
-		mv.setViewName("yoil");
-		
-		return mv;
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("day", day);
+		model.addAttribute("yoil", yoil);
+
+		return "yoil";
 
 	}
 
