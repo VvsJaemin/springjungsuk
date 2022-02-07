@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 // 년월일 입력 시 요일 알림
 @Controller
-public class YoilTellerMVC {
+public class YoilTellerMVC2 {
 
 	@ExceptionHandler(Exception.class)
 	public String catcher(Exception e) {
@@ -25,7 +25,7 @@ public class YoilTellerMVC {
 		return "yoilError";
 	}
 	
-	@RequestMapping("/getYoilMVC2")
+	@RequestMapping("/getYoilMVC")
 	public String main(@RequestParam(required = true) int year, @RequestParam(required = true) int month,
 			@RequestParam(required = true) int day, Model model) throws IOException {
 

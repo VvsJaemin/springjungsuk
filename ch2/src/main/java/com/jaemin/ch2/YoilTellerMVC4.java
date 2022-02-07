@@ -17,32 +17,37 @@ import org.springframework.web.servlet.ModelAndView;
 
 // 년월일 입력 시 요일 알림
 @Controller
-public class YoilTellerMVC {
+public class YoilTellerMVC4 {
 
 	@ExceptionHandler(Exception.class)
 	public String catcher(Exception e) {
 		e.printStackTrace();
 		return "yoilError";
 	}
-	
-	@RequestMapping("/getYoilMVC2")
-	public String main(@RequestParam(required = true) int year, @RequestParam(required = true) int month,
-			@RequestParam(required = true) int day, Model model) throws IOException {
 
-		if (!isValid(year, month, day)) {
+	@RequestMapping("/getYoilMVC4")
+	public String main(MyDate date, Model model) throws IOException {
+
+		if (!isValid(date)) {
 			return "yoilError";
 		}
 		// 요일 계산
-		char yoil = getYoil(year, month, day);
+		char yoil = getYoil(date);
 
 		// 계산한 결과를 model에 저장
-		model.addAttribute("year", year);
-		model.addAttribute("month", month);
-		model.addAttribute("day", day);
+		model.addAttribute("myDate", date);
 		model.addAttribute("yoil", yoil);
 
 		return "yoil";
 
+	}
+
+	private boolean isValid(MyDate date) {
+		return isValid(date.getYear(), date.getMonth(), date.getDay());
+	}
+
+	private char getYoil(MyDate date) {
+		return getYoil(date.getYear(), date.getMonth(), date.getDay());
 	}
 
 	private boolean isValid(int year, int month, int day) {
