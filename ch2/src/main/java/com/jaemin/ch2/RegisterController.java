@@ -1,41 +1,59 @@
 package com.jaemin.ch2;
 
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class RegisterController {
-	
-	@RequestMapping(value = "/register/add", method = {RequestMethod.GET, RequestMethod.POST})
+
+	@InitBinder
+	public void toDate(WebDataBinder binder) {
+		/*
+		 * SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		 * binder.registerCustomEditor(Date.class, new CustomDateEditor(df, false));
+		 */
+		binder.registerCustomEditor(String[].class, new StringArrayPropertyEditor("#"));
+	}
+
+	@RequestMapping(value = "/register/add", method = { RequestMethod.GET, RequestMethod.POST })
 	public String register() {
 		return "registerForm";
 	}
-	
+
 //	@RequestMapping(value = "/register/save", method=RequestMethod.POST)
 	@PostMapping("/register/save")
-	public String save(User user, Model model) throws Exception {
-		//1. 유효성 검사
-		if(!isValid(user)) {
-		
+	public String save(User user, BindingResult result, Model model) throws Exception {
+
+		System.out.println("result = " + result);
+		System.out.println("user = " + user);
+		// 1. 유효성 검사
+		if (!isValid(user)) {
+
 			String msg = URLEncoder.encode("id를 잘못입력하셨습니다.", "utf-8");
 			model.addAttribute("msg", msg);
 			return "forward:/register/add";
 //			return "redirect:/register/add?msg="+msg; // URL 재작성(rewriting)
 		}
-		//2. DB에 신규회원 정보를 저장
-		
+		// 2. DB에 신규회원 정보를 저장
 
 		return "registerInfo";
 	}
 
 	private boolean isValid(User user) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }
